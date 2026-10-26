@@ -1,0 +1,493 @@
+{
+  "words": [
+    {
+      "id": "wmvl38131ujp5",
+      "word": "designate",
+      "phonetic": "",
+      "meaning": "指定，命名",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767065725
+    },
+    {
+      "id": "wmvl3c7fghamc",
+      "word": "moderate",
+      "phonetic": "",
+      "meaning": "中等的，不偏激的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767260572
+    },
+    {
+      "id": "wmvl3h1tf9t9j",
+      "word": "symptom",
+      "phonetic": "",
+      "meaning": "症状",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767486579
+    },
+    {
+      "id": "wmvl3k7w6el9u",
+      "word": "come to notice",
+      "phonetic": "",
+      "meaning": "引起注意",
+      "tags": [
+        "短语",
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767634422
+    },
+    {
+      "id": "wmvl3mp0xnio0",
+      "word": "stay up",
+      "phonetic": "",
+      "meaning": "熬夜",
+      "tags": [
+        "短语",
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767749937
+    },
+    {
+      "id": "wmvl3npipmucf",
+      "word": "crop up",
+      "phonetic": "",
+      "meaning": "突然出现",
+      "tags": [
+        "短语",
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767797233
+    },
+    {
+      "id": "wmvl3okeujbc8",
+      "word": "cover up",
+      "phonetic": "",
+      "meaning": "隐瞒，掩盖",
+      "tags": [
+        "短语",
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792767837270
+    },
+    {
+      "id": "wmvl3sedkltvr",
+      "word": "significant",
+      "phonetic": "",
+      "meaning": "显著的，重要的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768016072
+    },
+    {
+      "id": "wmvl3ulpj3sn5",
+      "word": "impart",
+      "phonetic": "",
+      "meaning": "传授，告知",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768118887
+    },
+    {
+      "id": "wmvl3vhtbq66w",
+      "word": "immerse",
+      "phonetic": "",
+      "meaning": "沉浸",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768160495
+    },
+    {
+      "id": "wmvl3zr0w9zzs",
+      "word": "prevalent",
+      "phonetic": "",
+      "meaning": "流行的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768359056
+    },
+    {
+      "id": "wmvl41ssa05s5",
+      "word": "principal",
+      "phonetic": "",
+      "meaning": "主要的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768454650
+    },
+    {
+      "id": "wmvl4584l0v3f",
+      "word": "infant",
+      "phonetic": "",
+      "meaning": "婴儿，幼儿",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768614501
+    },
+    {
+      "id": "wmvl477z36whu",
+      "word": "virtual",
+      "phonetic": "",
+      "meaning": "虚拟的；实际上的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768707615
+    },
+    {
+      "id": "wmvl48owo96mc",
+      "word": "assemble",
+      "phonetic": "",
+      "meaning": "聚集",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792768776216
+    },
+    {
+      "id": "wmvmhm7mid10c",
+      "word": "bid",
+      "phonetic": "",
+      "meaning": "出价；投标；努力争取",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792851708186
+    },
+    {
+      "id": "wmvmi1i7dqht7",
+      "word": "divorce",
+      "phonetic": "",
+      "meaning": "离婚",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792852421737
+    },
+    {
+      "id": "wmvmi31rvwy6g",
+      "word": "controversial",
+      "phonetic": "",
+      "meaning": "有争议的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792852493755
+    },
+    {
+      "id": "wmvmics3jkba6",
+      "word": "stem",
+      "phonetic": "",
+      "meaning": "阻止；茎",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792852947775
+    },
+    {
+      "id": "wmvmijc3g8wxx",
+      "word": "manifest",
+      "phonetic": "",
+      "meaning": "表明；清单",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792853253628
+    },
+    {
+      "id": "wmvmioex8ylbd",
+      "word": "biased",
+      "phonetic": "",
+      "meaning": "有偏见的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792853490572
+    },
+    {
+      "id": "wmvmipk5eo0k6",
+      "word": "tactic",
+      "phonetic": "",
+      "meaning": "策略",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792853544002
+    },
+    {
+      "id": "wmvmit82qgqnx",
+      "word": "due",
+      "phonetic": "",
+      "meaning": "应得的；预期的",
+      "tags": [
+        "2010"
+      ],
+      "example": "due to：因为",
+      "done": false,
+      "createdAt": 1792853714978
+    },
+    {
+      "id": "wmvmiuqj399ra",
+      "word": "subtle",
+      "phonetic": "",
+      "meaning": "不易察觉的，微妙的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792853785552
+    },
+    {
+      "id": "wmvmiwgcrag8q",
+      "word": "ritual",
+      "phonetic": "",
+      "meaning": "仪式",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792853865675
+    },
+    {
+      "id": "wmvmixahxt2xl",
+      "word": "primary",
+      "phonetic": "",
+      "meaning": "主要的，首要的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792853904741
+    },
+    {
+      "id": "wmvmizvygxe3i",
+      "word": "liberate",
+      "phonetic": "",
+      "meaning": "自由，解放",
+      "tags": [
+        "2010"
+      ],
+      "example": "literate-literacy：读写能力",
+      "done": false,
+      "createdAt": 1792854025864
+    },
+    {
+      "id": "wmvmj58d63t9r",
+      "word": "immune",
+      "phonetic": "",
+      "meaning": "免疫的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792854275226
+    },
+    {
+      "id": "wmvmj6t0nqkrg",
+      "word": "consious",
+      "phonetic": "",
+      "meaning": "有知觉的",
+      "tags": [
+        "2010"
+      ],
+      "example": "conscience：良知的",
+      "done": false,
+      "createdAt": 1792854348647
+    },
+    {
+      "id": "wmvmjhyk97r1k",
+      "word": "inadequacy",
+      "phonetic": "",
+      "meaning": "不足",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792854869049
+    },
+    {
+      "id": "wmvmjqny7adz9",
+      "word": "abolish",
+      "phonetic": "",
+      "meaning": "废弃",
+      "tags": [
+        "2010"
+      ],
+      "example": "polish：抛光，打磨",
+      "done": false,
+      "createdAt": 1792855275199
+    },
+    {
+      "id": "wmvmjqvwx9laf",
+      "word": "congress",
+      "phonetic": "",
+      "meaning": "议会，国会",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792855285521
+    },
+    {
+      "id": "wmvmjru1kgwge",
+      "word": "impose",
+      "phonetic": "",
+      "meaning": "强行推行",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792855329752
+    },
+    {
+      "id": "wmvmjswlqzf5z",
+      "word": "democracy",
+      "phonetic": "",
+      "meaning": "民主",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792855379726
+    },
+    {
+      "id": "wmvnz3dmmo7bl",
+      "word": "as well as",
+      "phonetic": "",
+      "meaning": "以及，也，和",
+      "tags": [
+        "2010",
+        "短语"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792941528766
+    },
+    {
+      "id": "wmvnzaalrs9ht",
+      "word": "substancial",
+      "phonetic": "",
+      "meaning": "大量的；内容真实的",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792941851439
+    },
+    {
+      "id": "wmvnzchr9n3i4",
+      "word": "dminish",
+      "phonetic": "",
+      "meaning": "减少；降低",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792941954021
+    },
+    {
+      "id": "wmvnzdvgnsmhh",
+      "word": "perception",
+      "phonetic": "",
+      "meaning": "看法，感知",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792942018439
+    },
+    {
+      "id": "wmvnzfub1jqcx",
+      "word": "sector",
+      "phonetic": "",
+      "meaning": "区域，扇形",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792942110253
+    },
+    {
+      "id": "wmvnzgvw29gj4",
+      "word": "discrimination",
+      "phonetic": "",
+      "meaning": "歧视",
+      "tags": [
+        "2010"
+      ],
+      "example": "",
+      "done": false,
+      "createdAt": 1792942158962
+    }
+  ],
+  "settings": {
+    "bgOn": true
+  },
+  "updatedAt": 1792942158962
+}

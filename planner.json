@@ -1,0 +1,347 @@
+{
+  "cats": [
+    "数学",
+    "408",
+    "英语",
+    "政治",
+    "专业课",
+    "其他"
+  ],
+  "days": {
+    "2026-10-11": {
+      "tasks": []
+    },
+    "2026-10-12": {
+      "tasks": [
+        {
+          "id": "tmv5ci8k82oxq",
+          "title": "机组习题",
+          "cat": "408",
+          "dur": 120,
+          "done": false,
+          "start": 1320
+        },
+        {
+          "id": "tmv4uh0zc9trs",
+          "title": "微分方程",
+          "cat": "数学",
+          "dur": 90,
+          "done": true,
+          "start": 870
+        },
+        {
+          "id": "tmv575vd7vjvh",
+          "title": "计组的数据表示",
+          "cat": "408",
+          "dur": 120,
+          "done": true,
+          "start": 1200
+        }
+      ]
+    },
+    "2026-10-13": {
+      "tasks": [
+        {
+          "id": "tmv6g14nt9gmq",
+          "title": "数学题",
+          "cat": "数学",
+          "dur": 180,
+          "done": true,
+          "start": 1020
+        },
+        {
+          "id": "tmv5xn8q0sfw5",
+          "title": "计组题目",
+          "cat": "408",
+          "dur": 60,
+          "done": true,
+          "start": 510
+        }
+      ]
+    },
+    "2026-10-14": {
+      "tasks": [
+        {
+          "id": "tmv85690mh1ec",
+          "title": "半套英语题",
+          "cat": "英语",
+          "dur": 60,
+          "done": true,
+          "start": 1290
+        },
+        {
+          "id": "tmv7dwsjavq1i",
+          "title": "数据结构",
+          "cat": "408",
+          "dur": 60,
+          "done": true,
+          "start": 540
+        }
+      ]
+    },
+    "2026-10-15": {
+      "tasks": [
+        {
+          "id": "tmv9io6n3p23x",
+          "title": "线性代数",
+          "cat": "数学",
+          "dur": 60,
+          "done": true,
+          "start": 1230
+        }
+      ]
+    },
+    "2026-10-16": {
+      "tasks": [
+        {
+          "id": "tmvaahe1bluzg",
+          "title": "线性代数",
+          "cat": "数学",
+          "dur": 90,
+          "done": true,
+          "start": 570
+        },
+        {
+          "id": "tmvakzypxwaxt",
+          "title": "线性代数",
+          "cat": "数学",
+          "dur": 60,
+          "done": true,
+          "start": 870
+        },
+        {
+          "id": "tmvawlqoyre6s",
+          "title": "数据结构",
+          "cat": "408",
+          "dur": 90,
+          "done": false,
+          "start": 1200
+        }
+      ]
+    },
+    "2026-10-17": {
+      "tasks": [
+        {
+          "id": "tmvbqu9fu9wf5",
+          "title": "线性代数",
+          "cat": "数学",
+          "dur": 90,
+          "done": true,
+          "start": 600
+        },
+        {
+          "id": "tmvbze3jnalia",
+          "title": "线性代数-矩阵",
+          "cat": "数学",
+          "dur": 120,
+          "done": true,
+          "start": 840
+        },
+        {
+          "id": "tmvc4caj0d3ir",
+          "title": "数据结构-图",
+          "cat": "408",
+          "dur": 90,
+          "done": true,
+          "start": 1050
+        }
+      ]
+    },
+    "2026-10-18": {
+      "tasks": [
+        {
+          "id": "tmvd81zdhag53",
+          "title": "线性代数-向量",
+          "cat": "数学",
+          "dur": 120,
+          "done": true,
+          "start": 840
+        },
+        {
+          "id": "tmvd58mvyxax6",
+          "title": "线性代数-矩阵",
+          "cat": "数学",
+          "dur": 60,
+          "done": true,
+          "start": 570
+        },
+        {
+          "id": "tmvduf58340en",
+          "title": "数据结构-线性结构",
+          "cat": "408",
+          "dur": 120,
+          "done": true,
+          "start": 1230
+        }
+      ]
+    },
+    "2026-10-20": {
+      "tasks": [
+        {
+          "id": "tmvg0k41esyb1",
+          "title": "数据结构-图论",
+          "cat": "408",
+          "dur": 60,
+          "done": true,
+          "start": 570
+        },
+        {
+          "id": "tmvg8nq1upssm",
+          "title": "数据结构-查找",
+          "cat": "408",
+          "dur": 120,
+          "done": false,
+          "start": null
+        },
+        {
+          "id": "tmvg8oco2oa5j",
+          "title": "向量组",
+          "cat": "数学",
+          "dur": 120,
+          "done": false,
+          "start": 810
+        }
+      ]
+    },
+    "2026-10-21": {
+      "tasks": [
+        {
+          "id": "tmvhtcirzmcer",
+          "title": "数据结构-树形查找",
+          "cat": "408",
+          "dur": 90,
+          "done": true,
+          "start": 960
+        },
+        {
+          "id": "tmvhzs0eq07jv",
+          "title": "AVL",
+          "cat": "408",
+          "dur": 90,
+          "done": true,
+          "start": 1140
+        }
+      ]
+    },
+    "2026-10-22": {
+      "tasks": [
+        {
+          "id": "tmvj5zzwgg7qw",
+          "title": "排序-内部排序",
+          "cat": "408",
+          "dur": 150,
+          "done": false,
+          "start": null
+        },
+        {
+          "id": "tmvjnx7lnhsuz",
+          "title": "单独一行一列内积为1 任意两行两列相乘为1",
+          "cat": "数学",
+          "dur": 60,
+          "done": false,
+          "start": null
+        },
+        {
+          "id": "tmvj230hofp1p",
+          "title": "数据结构-哈希",
+          "cat": "408",
+          "dur": 60,
+          "done": true,
+          "start": 750
+        },
+        {
+          "id": "tmvj7jthseggy",
+          "title": "方程组",
+          "cat": "数学",
+          "dur": 60,
+          "done": true,
+          "start": 900
+        }
+      ]
+    },
+    "2026-10-23": {
+      "tasks": [
+        {
+          "id": "tmvkd2081mr9c",
+          "title": "数据结构-快速排序",
+          "cat": "408",
+          "dur": 90,
+          "done": true,
+          "start": 630
+        },
+        {
+          "id": "tmvkygvexdoxe",
+          "title": "【数据结构】",
+          "cat": "408",
+          "dur": 30,
+          "done": true,
+          "start": 1170
+        },
+        {
+          "id": "tmvkyhcvnfoxg",
+          "title": "线代-方程组",
+          "cat": "数学",
+          "dur": 90,
+          "done": true,
+          "start": 1230
+        },
+        {
+          "id": "tmvl2t4onf8y6",
+          "title": "英语-整理错题",
+          "cat": "英语",
+          "dur": 60,
+          "done": false,
+          "start": 1350
+        }
+      ]
+    },
+    "2026-10-24": {
+      "tasks": [
+        {
+          "id": "tmvlsnum3u995",
+          "title": "串行和并行加法器；加减运算器",
+          "cat": "408",
+          "dur": 30,
+          "done": true,
+          "start": 750
+        },
+        {
+          "id": "tmvm0yl4o28y7",
+          "title": "浮点数，乘法",
+          "cat": "408",
+          "dur": 30,
+          "done": false,
+          "start": null
+        }
+      ]
+    },
+    "2026-10-25": {
+      "tasks": [
+        {
+          "id": "tmvnzajyg80a5",
+          "title": "难死了",
+          "cat": "数学",
+          "dur": 60,
+          "done": true,
+          "start": 1380
+        }
+      ]
+    }
+  },
+  "todos": [
+    {
+      "id": "nmvnhohh3zk5vh",
+      "text": "- 湖科大 4-7-2\n- cache的记忆\n- 第三章",
+      "done": false,
+      "createdAt": 1792912280439,
+      "updatedAt": 1792912280439
+    }
+  ],
+  "settings": {
+    "remindOn": false,
+    "soundOn": true,
+    "bgOn": true,
+    "view": "timeline"
+  },
+  "updatedAt": 1792941868471
+}

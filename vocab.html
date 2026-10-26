@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>考研单词本</title>
+  <style>
+    :root {
+      --ink: #0A0A0A;
+      --ink-2: #3F3F46;
+      --ink-3: #71717A;
+      --ink-4: #A1A1AA;
+      --rule: #E4E4E7;
+      --rule-strong: #C9C9CF;
+      /* 与计划表同一套排版：白纸、1px 细线、蓝色点缀 */
+      --surface: #FFFFFF;
+      --surface-2: #F7F7F8;
+      --surface-a: rgba(255, 255, 255, .74);
+      --panel: rgba(255, 255, 255, .97);
+      --accent: #002FA7;
+      --bg-photo-opacity: .38;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 背景图：固定铺满视口，淡化后垫在白纸下面 */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .24), rgba(255, 255, 255, .34)),
+        /* url("https://api.bimg.cc/today?w=1920&h=1080&mkt=en-US"); */
+        url("https://uapis.cn/api/v1/random/image?category=pc_wallpaper");
+      /* 动漫壁纸 */
+      background-position: center, center;
+      background-size: cover, cover;
+      background-repeat: no-repeat, no-repeat;
+      opacity: var(--bg-photo-opacity);
+      filter: saturate(.92);
+      transition: opacity .25s ease;
+    }
+
+    body.no-photo {
+      --bg-photo-opacity: 0
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px
+    }
+
+    h2,
+    h3,
+    p,
+    dl,
+    dd,
+    dt,
+    ul {
+      margin: 0;
+      padding: 0
+    }
+
+    ul {
+      list-style: none
+    }
+
+    .app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden
+    }
+
+    /* masthead */
+
+    .masthead {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding: 26px 32px 16px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .ledger-line {
+      display: flex;
+      align-items: baseline;
+      gap: 18px
+    }
+
+    .ledger-num {
+      font-size: 62px;
+      line-height: .86;
+      font-weight: 500;
+      letter-spacing: -.05em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ledger-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-bottom: 4px
+    }
+
+    .ledger-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em
+    }
+
+    .ledger-sub {
+      font-size: 12px;
+      color: var(--ink-3);
+      font-variant-numeric: tabular-nums
+    }
+
+    .mast-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--ink-3)
+    }
+
+    .mast-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px
+    }
+
+    .countdown {
+      display: flex;
+      align-items: baseline;
+      gap: 10px
+    }
+
+    .countdown-label {
+      font-size: 11px;
+      color: var(--ink-3)
+    }
+
+    .countdown-value {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px
+    }
+
+    .countdown-num {
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: -.03em;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+    }
+
+    .countdown-unit {
+      font-size: 12px;
+      color: var(--ink-2)
+    }
+
+    .stats {
+      display: flex;
+      border: 1px solid var(--rule-strong)
+    }
+
+    .stat {
+      padding: 7px 18px 8px;
+      border-left: 1px solid var(--rule);
+      min-width: 96px
+    }
+
+    .stat:first-child {
+      border-left: 0
+    }
+
+    .stat dt {
+      font-size: 11px;
+      color: var(--ink-3)
+    }
+
+    .stat dd {
+      margin-top: 2px;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -.02em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+
+    .toolbar {
+      display: flex;
+      border: 1px solid var(--rule-strong)
+    }
+
+    .toolbar .btn {
+      border: 0;
+      border-left: 1px solid var(--rule)
+    }
+
+    .toolbar .btn:first-child {
+      border-left: 0
+    }
+
+    .toolbar .btn.is-on {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600
+    }
+
+    /* buttons */
+
+    .btn {
+      font: inherit;
+      font-size: 12px;
+      color: var(--ink-2);
+      background: var(--surface-a);
+      border: 1px solid var(--rule-strong);
+      padding: 6px 12px;
+      border-radius: 0;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .12s, color .12s, border-color .12s;
+    }
+
+    .btn:hover {
+      background: var(--surface-2);
+      color: var(--ink)
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .btn-primary:hover {
+      background: #00227A;
+      border-color: #00227A;
+      color: #fff
+    }
+
+    .btn-danger {
+      color: #B00020
+    }
+
+    .btn-danger:hover {
+      background: #B00020;
+      border-color: #B00020;
+      color: #fff
+    }
+
+    /* columns */
+
+    .columns {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(300px, 352px) 1fr;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 18px 22px 20px 32px;
+      overflow-y: auto
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      border-left: 1px solid var(--rule);
+      padding: 18px 32px 0 22px;
+    }
+
+    .col-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .col-head h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em
+    }
+
+    .col-note {
+      font-size: 11px;
+      color: var(--ink-3);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    /* add form */
+
+    .add-form {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 14px 0 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .field-block {
+      display: block
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      color: var(--ink-3)
+    }
+
+    .add-form input {
+      font: inherit;
+      font-size: 13px;
+      width: 100%;
+      padding: 7px 9px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      background: var(--surface-a);
+      color: var(--ink);
+    }
+
+    .add-form input::placeholder {
+      color: var(--ink-4)
+    }
+
+    .add-form .add-title {
+      font-size: 15px;
+      padding: 8px 10px
+    }
+
+    .field-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px
+    }
+
+    .add-submit {
+      margin-top: 2px;
+      padding: 8px 12px;
+      width: 100%
+    }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--ink-3);
+      line-height: 1.6;
+      border-left: 2px solid var(--accent);
+      padding-left: 8px;
+    }
+
+    /* tags */
+
+    .tags-head {
+      margin-top: 16px
+    }
+
+    .tag-list {
+      flex: 1;
+      min-height: 90px;
+      padding: 4px 0 8px
+    }
+
+    .tag-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      font: inherit;
+      font-size: 13px;
+      text-align: left;
+      color: var(--ink-2);
+      background: transparent;
+      border: 0;
+      border-left: 2px solid transparent;
+      border-bottom: 1px solid var(--rule);
+      padding: 7px 8px;
+      cursor: pointer;
+    }
+
+    .tag-row:hover {
+      background: var(--surface-2);
+      color: var(--ink)
+    }
+
+    .tag-row.is-on {
+      border-left-color: var(--accent);
+      background: var(--surface-2);
+      color: var(--ink);
+      font-weight: 600
+    }
+
+    .tag-count {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink-3);
+      font-variant-numeric: tabular-nums
+    }
+
+    .tag-row.is-on .tag-count {
+      color: var(--accent)
+    }
+
+    .tag-empty {
+      padding: 10px 8px;
+      font-size: 11px;
+      color: var(--ink-3);
+      line-height: 1.7
+    }
+
+    /* list tools */
+
+    .list-tools {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .search {
+      flex: 1 1 220px;
+      min-width: 0;
+      font: inherit;
+      font-size: 13px;
+      padding: 7px 10px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      background: var(--surface-a);
+      color: var(--ink);
+    }
+
+    .search::placeholder {
+      color: var(--ink-4)
+    }
+
+    .seg {
+      display: flex;
+      border: 1px solid var(--rule-strong)
+    }
+
+    .seg-btn {
+      font: inherit;
+      font-size: 11px;
+      color: var(--ink-2);
+      background: var(--surface-a);
+      border: 0;
+      border-left: 1px solid var(--rule);
+      padding: 6px 11px;
+      cursor: pointer;
+      transition: background .12s, color .12s;
+    }
+
+    .seg-btn:first-child {
+      border-left: 0
+    }
+
+    .seg-btn:hover {
+      background: var(--surface-2);
+      color: var(--ink)
+    }
+
+    .seg-btn.is-on {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600
+    }
+
+    .seg-btn.is-on:hover {
+      background: var(--accent);
+      color: #fff
+    }
+
+    .list-tools .btn {
+      font-size: 11px;
+      padding: 6px 11px
+    }
+
+    /* entries */
+
+    .entries {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding-bottom: 48px
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) minmax(0, 208px);
+      column-gap: 16px;
+      padding: 13px 6px 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .entry:hover {
+      background: var(--surface-2)
+    }
+
+    .folio {
+      padding-top: 5px;
+      font-size: 11px;
+      letter-spacing: .04em;
+      color: var(--ink-3);
+      font-variant-numeric: tabular-nums
+    }
+
+    .entry-word {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap
+    }
+
+    .word {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.25;
+      word-break: break-word
+    }
+
+    .phonetic {
+      font-size: 12px;
+      color: var(--ink-3)
+    }
+
+    .entry-meaning {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--ink-2);
+      word-break: break-word
+    }
+
+    .entry-example {
+      margin-top: 3px;
+      font-size: 12px;
+      color: var(--ink-3);
+      word-break: break-word
+    }
+
+    .entry.is-done .word {
+      text-decoration: line-through;
+      color: var(--ink-3)
+    }
+
+    .entry.is-done .entry-meaning,
+    .entry.is-done .phonetic,
+    .entry.is-done .entry-example {
+      color: var(--ink-3)
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      flex: none;
+      cursor: pointer
+    }
+
+    .check input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      margin: 0;
+      flex: none;
+      border: 1px solid var(--ink-4);
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .check input:checked {
+      border-color: var(--accent);
+      background: var(--accent)
+    }
+
+    .check input:checked::after {
+      content: "";
+      position: absolute;
+      left: 3.5px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid #fff;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(42deg);
+    }
+
+    .entry-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 4px;
+    }
+
+    .entry-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      font: inherit;
+      font-size: 11px;
+      padding: 1px 6px;
+      border: 1px solid var(--rule-strong);
+      background: transparent;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: border-color .12s, color .12s;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent)
+    }
+
+    .entry-actions {
+      display: flex;
+      border: 1px solid var(--rule);
+      opacity: .6;
+      transition: opacity .12s, border-color .12s;
+    }
+
+    .entry:hover .entry-actions,
+    .entry:focus-within .entry-actions {
+      opacity: 1;
+      border-color: var(--rule-strong)
+    }
+
+    .btn-mini {
+      font: inherit;
+      font-size: 11px;
+      color: var(--ink-3);
+      background: var(--surface-a);
+      border: 0;
+      border-left: 1px solid var(--rule);
+      padding: 3px 7px;
+      cursor: pointer;
+    }
+
+    .btn-mini:first-child {
+      border-left: 0
+    }
+
+    .btn-mini:hover {
+      background: var(--ink);
+      color: #fff
+    }
+
+    .btn-mini.is-confirm {
+      background: #B00020;
+      color: #fff
+    }
+
+    .empty {
+      padding: 26px 4px;
+      font-size: 13px;
+      color: var(--ink-3);
+      line-height: 1.8
+    }
+
+    .empty-title {
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 2px
+    }
+
+    /* modal */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 10, .32);
+      padding: 24px;
+    }
+
+    .modal.is-open {
+      display: flex
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 430px;
+      background: var(--panel);
+      border: 1px solid var(--ink);
+      padding: 20px 22px 18px;
+    }
+
+    .modal-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      margin: 0 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .f-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px
+    }
+
+    .f-row>span {
+      font-size: 12px;
+      color: var(--ink-3);
+      width: 44px;
+      flex: none
+    }
+
+    .f-row input[type="text"] {
+      font: inherit;
+      font-size: 14px;
+      flex: 1;
+      min-width: 0;
+      padding: 7px 9px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .f-row.check-row {
+      gap: 8px
+    }
+
+    .f-row.check-row input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      margin: 0;
+      flex: none;
+      border: 1px solid var(--ink-4);
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .f-row.check-row input:checked {
+      border-color: var(--accent);
+      background: var(--accent)
+    }
+
+    .f-row.check-row input:checked::after {
+      content: "";
+      position: absolute;
+      left: 3.5px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid #fff;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(42deg);
+    }
+
+    .f-row.check-row label {
+      font-size: 13px;
+      cursor: pointer
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .modal-actions .btn {
+      padding: 7px 14px;
+      font-size: 13px
+    }
+
+    .modal-actions .spacer {
+      margin-right: auto
+    }
+
+    /* toast */
+
+    .file-state {
+      font-size: 13px;
+      line-height: 1.7;
+      word-break: break-all
+    }
+
+    .file-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--ink-3);
+      line-height: 1.7
+    }
+
+    .toast {
+      position: fixed;
+      left: 32px;
+      bottom: 28px;
+      z-index: 60;
+      background: var(--ink);
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: .02em;
+      padding: 8px 14px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events: none;
+    }
+
+    .toast.is-open {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* responsive */
+
+    @media (max-width:900px) {
+      .app {
+        height: auto;
+        overflow: visible
+      }
+
+      .masthead {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px
+      }
+
+      .mast-right {
+        align-items: flex-start;
+        width: 100%
+      }
+
+      .stats {
+        width: 100%;
+        flex-wrap: wrap
+      }
+
+      .stat {
+        flex: 1
+      }
+
+      .columns {
+        grid-template-columns: 1fr
+      }
+
+      .side {
+        padding: 18px 20px 20px;
+        border-bottom: 1px solid var(--ink)
+      }
+
+      .main {
+        border-left: 0;
+        padding: 18px 20px 0
+      }
+
+      .entries {
+        overflow: visible
+      }
+
+      .entry {
+        grid-template-columns: 28px minmax(0, 1fr);
+        column-gap: 10px
+      }
+
+      .entry-side {
+        grid-column: 2;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 2px
+      }
+
+      .entry-tags {
+        justify-content: flex-start
+      }
+    }
+
+    @media (hover:none) {
+      .entry-actions {
+        opacity: 1
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header class="masthead">
+      <div class="mast-left">
+        <div class="ledger-line">
+          <p class="ledger-num" id="totalNum">0</p>
+          <div class="ledger-meta">
+            <p class="ledger-label">收录单词</p>
+            <p class="ledger-sub" id="todayLine">今日新增 0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mast-right">
+        <p class="countdown">
+          <span class="countdown-label" id="examLabel"></span>
+          <span class="countdown-value"><b class="countdown-num" id="examDays"></b><span class="countdown-unit"
+              id="examUnit"></span></span>
+        </p>
+        <dl class="stats" id="stats"></dl>
+        <div class="toolbar">
+          <button type="button" class="btn" id="bgBtn">背景图：开</button>
+          <button type="button" class="btn" id="fileBtn">数据文件</button>
+          <button type="button" class="btn" id="exportBtn">导出数据</button>
+          <button type="button" class="btn" id="importBtn">导入数据</button>
+          <input type="file" id="importFile" accept=".json,application/json" hidden>
+        </div>
+      </div>
+    </header>
+
+    <div class="columns">
+
+      <section class="side" aria-label="添加单词和标签">
+        <div class="col-head">
+          <h2>添加单词</h2>
+        </div>
+
+        <form class="add-form" id="addForm">
+          <label class="field-block">
+            <span class="field-label">单词</span>
+            <input class="add-title" id="addWord" type="text" placeholder="abandon" autocomplete="off" maxlength="48"
+              required>
+          </label>
+          <label class="field-block">
+            <span class="field-label">释义</span>
+            <input id="addMeaning" type="text" placeholder="放弃；抛弃" autocomplete="off" maxlength="120" required>
+          </label>
+          <div class="field-pair">
+            <label class="field-block">
+              <span class="field-label">音标</span>
+              <input id="addPhonetic" type="text" placeholder="/əˈbændən/" autocomplete="off" maxlength="40">
+            </label>
+            <label class="field-block">
+              <span class="field-label">标签</span>
+              <input id="addTags" type="text" value="2010" placeholder="高频, 熟词僻义" autocomplete="off" maxlength="60">
+            </label>
+          </div>
+          <label class="field-block">
+            <span class="field-label">例句</span>
+            <input id="addExample" type="text" placeholder="They abandoned the plan." autocomplete="off"
+              maxlength="160">
+          </label>
+          <button class="btn btn-primary add-submit" type="submit">加入单词本</button>
+          <p class="form-note" id="storageNote" hidden></p>
+        </form>
+
+        <div class="col-head tags-head">
+          <h2>标签</h2>
+          <span class="col-note" id="tagNote">0 个</span>
+        </div>
+        <ul class="tag-list" id="tagList"></ul>
+      </section>
+
+      <section class="main" aria-label="单词本">
+        <div class="col-head">
+          <h2>单词本</h2>
+          <span class="col-note" id="resultNote">0 词</span>
+        </div>
+
+        <div class="list-tools">
+          <input class="search" id="search" type="search" placeholder="搜索单词、释义、标签" autocomplete="off">
+          <div class="seg" id="filterSeg" role="group" aria-label="掌握状态"></div>
+          <button type="button" class="btn" id="sortBtn" title="切换排序">最新</button>
+        </div>
+
+        <ul class="entries" id="entries"></ul>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalHead">
+      <h3 id="modalHead">编辑单词</h3>
+      <form id="editForm">
+        <label class="f-row"><span>单词</span><input id="edWord" type="text" maxlength="48" required
+            autocomplete="off"></label>
+        <label class="f-row"><span>释义</span><input id="edMeaning" type="text" maxlength="120" required
+            autocomplete="off"></label>
+        <label class="f-row"><span>音标</span><input id="edPhonetic" type="text" maxlength="40"
+            autocomplete="off"></label>
+        <label class="f-row"><span>标签</span><input id="edTags" type="text" maxlength="60" autocomplete="off"></label>
+        <label class="f-row"><span>例句</span><input id="edExample" type="text" maxlength="160"
+            autocomplete="off"></label>
+        <div class="f-row check-row">
+          <input type="checkbox" id="edDone">
+          <label for="edDone">标记为已掌握</label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-danger spacer" id="edDelete">删除</button>
+          <button type="button" class="btn" id="edCancel">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal" id="fileModal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="fileHead">
+      <h3 id="fileHead">数据文件</h3>
+      <p class="file-state" id="fileState">还没有绑定文件夹。</p>
+      <p class="file-note">选一次这个 HTML 所在的文件夹，单词就会自动写进同目录的 vocab.json；换电脑、清掉浏览器数据也能恢复。浏览器不支持时，用「导出数据 / 导入数据」手动备份。</p>
+      <div class="modal-actions">
+        <button type="button" class="btn spacer" id="fileLoadBtn">载入文件…</button>
+        <button type="button" class="btn" id="fileCancel">关闭</button>
+        <button type="button" class="btn btn-primary" id="fileBindBtn">选择文件夹</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var STORE_KEY = 'kaoyan-vocab-v1';
+      var EXAM_DATE = '2026-12-19';
+      var MODES = [
+        { id: 'all', label: '全部' },
+        { id: 'todo', label: '待掌握' },
+        { id: 'done', label: '已掌握' }
+      ];
+
+      function $(id) { return document.getElementById(id); }
+
+      var el = {
+        totalNum: $('totalNum'),
+        todayLine: $('todayLine'),
+        examLabel: $('examLabel'),
+        examDays: $('examDays'),
+        examUnit: $('examUnit'),
+        stats: $('stats'),
+        bgBtn: $('bgBtn'),
+        fileBtn: $('fileBtn'),
+        fileModal: $('fileModal'),
+        fileState: $('fileState'),
+        fileBindBtn: $('fileBindBtn'),
+        fileLoadBtn: $('fileLoadBtn'),
+        fileCancel: $('fileCancel'),
+        exportBtn: $('exportBtn'),
+        importBtn: $('importBtn'),
+        importFile: $('importFile'),
+        addForm: $('addForm'),
+        addWord: $('addWord'),
+        addMeaning: $('addMeaning'),
+        addPhonetic: $('addPhonetic'),
+        addTags: $('addTags'),
+        addExample: $('addExample'),
+        storageNote: $('storageNote'),
+        tagList: $('tagList'),
+        tagNote: $('tagNote'),
+        resultNote: $('resultNote'),
+        search: $('search'),
+        filterSeg: $('filterSeg'),
+        sortBtn: $('sortBtn'),
+        entries: $('entries'),
+        modal: $('modal'),
+        editForm: $('editForm'),
+        edWord: $('edWord'),
+        edMeaning: $('edMeaning'),
+        edPhonetic: $('edPhonetic'),
+        edTags: $('edTags'),
+        edExample: $('edExample'),
+        edDone: $('edDone'),
+        edDelete: $('edDelete'),
+        edCancel: $('edCancel'),
+        toast: $('toast')
+      };
+
+      var store = { words: [], settings: { bgOn: true }, updatedAt: 0 };
+      var filters = { text: '', tags: [], mode: 'all', sort: 'new' };
+      var editingId = null;
+      var toastTimer = null;
+      var storageBlocked = false;
+
+      /* storage */
+
+      function makeId() {
+        return 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      }
+
+      function splitTags(str) {
+        var out = [];
+        var parts = String(str || '').split(/[,，;；]/);
+        for (var i = 0; i < parts.length; i++) {
+          var t = parts[i].trim();
+          if (!t) continue;
+          if (t.length > 12) t = t.slice(0, 12);
+          if (out.indexOf(t) < 0) out.push(t);
+          if (out.length >= 6) break;
+        }
+        return out;
+      }
+
+      function normalizeWords(list) {
+        var out = [];
+        for (var i = 0; i < list.length; i++) {
+          var w = list[i];
+          if (!w || typeof w !== 'object') continue;
+          var word = String(w.word || '').trim();
+          if (!word) continue;
+          out.push({
+            id: String(w.id || makeId()),
+            word: word,
+            phonetic: String(w.phonetic || '').trim(),
+            meaning: String(w.meaning || '').trim(),
+            tags: splitTags(Object.prototype.toString.call(w.tags) === '[object Array]' ? w.tags.join(',') : w.tags),
+            example: String(w.example || '').trim(),
+            done: !!w.done,
+            createdAt: Number(w.createdAt) || Date.now()
+          });
+        }
+        return out;
+      }
+
+      function loadStore() {
+        try {
+          var raw = localStorage.getItem(STORE_KEY);
+          if (!raw) return;
+          var parsed = JSON.parse(raw);
+          if (!parsed || Object.prototype.toString.call(parsed.words) !== '[object Array]') return;
+          store.words = normalizeWords(parsed.words);
+          if (parsed.settings && parsed.settings.bgOn === false) store.settings.bgOn = false;
+          store.updatedAt = Number(parsed.updatedAt) || 0;
+        } catch (err) {
+          storageBlocked = true;
+        }
+      }
+
+      function saveStore() {
+        store.updatedAt = Date.now();
+        try {
+          localStorage.setItem(STORE_KEY, JSON.stringify(store));
+        } catch (err) {
+          markStorageBlocked();
+        }
+        scheduleFileWrite();
+      }
+
+      function markStorageBlocked() {
+        storageBlocked = true;
+        el.storageNote.hidden = false;
+        el.storageNote.textContent =
+          '这个浏览器不允许本地存储，刷新后数据不会保留。用 Chrome 或 Edge 打开，或通过本地服务器访问即可保存。';
+      }
+
+      /* 数据文件：绑定后把单词本自动写进本地 JSON */
+
+      var dataFile = null;
+      var dataDir = null;
+      var DATA_FILE_NAME = 'vocab.json';
+      var fileTimer = null;
+      var fileSupported = typeof window.showDirectoryPicker === 'function' &&
+        typeof window.showOpenFilePicker === 'function';
+
+      function openHandleDB() {
+        return new Promise(function (resolve, reject) {
+          if (!window.indexedDB) {
+            reject(new Error('no-idb'));
+            return;
+          }
+          var req = indexedDB.open('kaoyan-vocab-file', 1);
+          req.onupgradeneeded = function () {
+            var db = req.result;
+            if (!db.objectStoreNames.contains('handles')) db.createObjectStore('handles');
+          };
+          req.onsuccess = function () { resolve(req.result); };
+          req.onerror = function () { reject(req.error || new Error('idb')); };
+        });
+      }
+
+      function rememberHandle(handle) {
+        openHandleDB().then(function (db) {
+          var tx = db.transaction('handles', 'readwrite');
+          tx.objectStore('handles').put(handle, 'data');
+          tx.oncomplete = function () { db.close(); };
+        }).catch(function () { });
+      }
+
+      function recallHandle() {
+        return openHandleDB().then(function (db) {
+          return new Promise(function (resolve) {
+            var tx = db.transaction('handles', 'readonly');
+            var req = tx.objectStore('handles').get('data');
+            req.onsuccess = function () {
+              db.close();
+              resolve(req.result || null);
+            };
+            req.onerror = function () {
+              db.close();
+              resolve(null);
+            };
+          });
+        }).catch(function () { return null; });
+      }
+
+      function setFileStatus(text) {
+        if (el.fileState) el.fileState.textContent = text;
+      }
+
+      function renderFileButton() {
+        el.fileBtn.classList.toggle('is-on', !!dataFile);
+        el.fileBtn.title = dataFile ? '数据文件：' + dataFile.name + '（点击查看）' : '数据还没绑定文件夹，点击选择';
+      }
+
+      function writeDataFile() {
+        if (!dataFile) return Promise.resolve(false);
+        var text = JSON.stringify(store, null, 2);
+        return dataFile.createWritable().then(function (w) {
+          return w.write(text).then(function () { return w.close(); });
+        }).then(function () {
+          setFileStatus('已自动保存到：' + dataFile.name);
+          return true;
+        }).catch(function () {
+          setFileStatus('文件暂时写不进去：' + dataFile.name + '。点「选择文件夹」重新授权。');
+          return false;
+        });
+      }
+
+      function scheduleFileWrite() {
+        if (!dataFile) return;
+        if (fileTimer) window.clearTimeout(fileTimer);
+        fileTimer = window.setTimeout(function () {
+          fileTimer = null;
+          writeDataFile();
+        }, 500);
+      }
+
+      function openFileModal() {
+        renderFileButton();
+        if (!fileSupported) {
+          setFileStatus('这个浏览器不支持直接写本地文件。请用「导出数据」备份，用「导入数据」恢复。');
+        } else if (dataFile) {
+          setFileStatus('已绑定：' + dataFile.name + '。改动会自动保存。');
+        } else {
+          setFileStatus('还没有绑定文件夹，单词目前只存在浏览器里。');
+        }
+        el.fileModal.classList.add('is-open');
+      }
+
+      function closeFileModal() {
+        el.fileModal.classList.remove('is-open');
+      }
+
+      function bindDataFolder() {
+        if (!fileSupported) {
+          setFileStatus('这个浏览器不支持直接写本地文件。请用「导出数据」备份，用「导入数据」恢复。');
+          return;
+        }
+        window.showDirectoryPicker({ mode: 'readwrite' }).then(function (dir) {
+          dataDir = dir;
+          rememberHandle(dir);
+          return dir.getFileHandle(DATA_FILE_NAME, { create: true });
+        }).then(function (handle) {
+          dataFile = handle;
+          renderFileButton();
+          return writeDataFile().then(function (ok) {
+            if (ok) {
+              setFileStatus('已绑定文件夹：' + (dataDir ? dataDir.name : '') + '。数据写在 ' +
+                DATA_FILE_NAME + '，之后每次改动都会自动保存。');
+              toast('单词已写入 ' + DATA_FILE_NAME);
+            }
+          });
+        }).catch(function (err) {
+          if (err && err.name === 'AbortError') return;
+          setFileStatus('没有绑定成功：' + (err && err.name ? err.name : '未知错误'));
+        });
+      }
+
+      function loadDataFileFromDisk() {
+        if (!fileSupported) {
+          setFileStatus('这个浏览器不支持直接读取本地文件。请用「导入数据」。');
+          return;
+        }
+        window.showOpenFilePicker({
+          types: [{ description: 'JSON 数据', accept: { 'application/json': ['.json'] } }]
+        }).then(function (handles) {
+          var handle = handles && handles[0];
+          if (!handle) return;
+          return handle.getFile().then(function (f) { return f.text(); }).then(function (txt) {
+            var parsed = null;
+            try { parsed = JSON.parse(txt); } catch (e) { parsed = null; }
+            if (!parsed || Object.prototype.toString.call(parsed.words) !== '[object Array]') {
+              setFileStatus('这个文件不是单词本数据。');
+              return;
+            }
+            if (!window.confirm('载入会覆盖当前单词本，确定继续吗？')) return;
+            applyParsedData(parsed, true);
+            dataFile = handle;
+            rememberHandle(handle);
+            try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { }
+            renderBgBtn();
+            render();
+            renderFileButton();
+            setFileStatus('已载入：' + handle.name + '，并绑定自动保存。');
+            toast('已载入数据文件');
+          });
+        }).catch(function (err) {
+          if (err && err.name === 'AbortError') return;
+          setFileStatus('读取失败：' + (err && err.name ? err.name : '未知错误'));
+        });
+      }
+
+      function applyParsedData(parsed, markFresh) {
+        if (!parsed || typeof parsed !== 'object' ||
+          Object.prototype.toString.call(parsed.words) !== '[object Array]') return false;
+        store.words = normalizeWords(parsed.words);
+        if (parsed.settings && typeof parsed.settings === 'object') {
+          store.settings.bgOn = parsed.settings.bgOn !== false;
+        }
+        store.updatedAt = markFresh ? Date.now() : (Number(parsed.updatedAt) || Date.now());
+        return true;
+      }
+
+      function restoreDataFile() {
+        if (!fileSupported) return;
+        recallHandle().then(function (handle) {
+          if (!handle) return;
+          return handle.queryPermission({ mode: 'readwrite' }).then(function (state) {
+            if (state !== 'granted') {
+              setFileStatus('已绑定：' + handle.name + '（需要点「选择文件夹」重新授权）');
+              return;
+            }
+            var fileReady;
+            if (handle.kind === 'directory') {
+              dataDir = handle;
+              fileReady = handle.getFileHandle(DATA_FILE_NAME);
+            } else {
+              fileReady = Promise.resolve(handle);
+            }
+            return fileReady.then(function (fh) {
+              dataFile = fh;
+              renderFileButton();
+              setFileStatus('已绑定：' + (dataDir ? dataDir.name + ' / ' : '') + fh.name);
+              return fh.getFile().then(function (f) { return f.text(); });
+            }).then(function (txt) {
+              var parsed = null;
+              try { parsed = JSON.parse(txt); } catch (e) { parsed = null; }
+              var fileTs = parsed && Number(parsed.updatedAt) || 0;
+              var localTs = Number(store.updatedAt) || 0;
+              if (parsed && Object.prototype.toString.call(parsed.words) === '[object Array]' && fileTs > localTs) {
+                applyParsedData(parsed, false);
+                try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) { }
+                renderBgBtn();
+                render();
+                setFileStatus('已从文件恢复：' + (dataDir ? dataDir.name + ' / ' : '') + dataFile.name);
+                toast('已从数据文件恢复最新内容');
+              } else {
+                scheduleFileWrite();
+              }
+            });
+          }).catch(function () {
+            dataFile = null;
+            renderFileButton();
+            setFileStatus('找不到 ' + DATA_FILE_NAME + '，点「选择文件夹」重新绑定。');
+          });
+        }).catch(function () { });
+      }
+
+      /* helpers */
+
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+      function pad3(n) {
+        var s = String(n);
+        while (s.length < 3) s = '0' + s;
+        return s;
+      }
+
+      function todayStr() {
+        var d = new Date();
+        return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      }
+
+      function parseDate(str) {
+        var p = str.split('-');
+        return new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+      }
+
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function findWord(id) {
+        for (var i = 0; i < store.words.length; i++) if (store.words[i].id === id) return store.words[i];
+        return null;
+      }
+
+      function hasWord(word, exceptId) {
+        var key = String(word).trim().toLowerCase();
+        for (var i = 0; i < store.words.length; i++) {
+          if (store.words[i].id === exceptId) continue;
+          if (store.words[i].word.trim().toLowerCase() === key) return true;
+        }
+        return false;
+      }
+
+      function tagStats() {
+        var map = {};
+        var order = [];
+        for (var i = 0; i < store.words.length; i++) {
+          var tags = store.words[i].tags;
+          for (var k = 0; k < tags.length; k++) {
+            if (!map[tags[k]]) {
+              map[tags[k]] = 0;
+              order.push(tags[k]);
+            }
+            map[tags[k]]++;
+          }
+        }
+        order.sort(function (a, b) {
+          return map[b] - map[a] || a.localeCompare(b, 'zh');
+        });
+        var out = [];
+        for (var n = 0; n < order.length; n++) out.push({ tag: order[n], count: map[order[n]] });
+        return out;
+      }
+
+      /* 当前筛选条件 */
+
+      function matches(w) {
+        var q = filters.text.trim().toLowerCase();
+        if (filters.mode === 'todo' && w.done) return false;
+        if (filters.mode === 'done' && !w.done) return false;
+        for (var k = 0; k < filters.tags.length; k++) {
+          if (w.tags.indexOf(filters.tags[k]) < 0) return false;
+        }
+        if (!q) return true;
+        var hay = (w.word + ' ' + w.meaning + ' ' + w.phonetic + ' ' + w.example + ' ' + w.tags.join(' ')).toLowerCase();
+        return hay.indexOf(q) >= 0;
+      }
+
+      function visibleWords() {
+        var list = [];
+        for (var i = 0; i < store.words.length; i++) {
+          if (matches(store.words[i])) list.push(store.words[i]);
+        }
+        if (filters.sort === 'az') {
+          list.sort(function (a, b) {
+            return a.word.localeCompare(b.word, 'en', { sensitivity: 'base' });
+          });
+        } else {
+          list.sort(function (a, b) { return b.createdAt - a.createdAt; });
+        }
+        return list;
+      }
+
+      /* render */
+
+      function renderCountdown() {
+        var exam = parseDate(EXAM_DATE);
+        var days = Math.round((exam - parseDate(todayStr())) / 86400000);
+        var label = '初试已过去';
+        if (days > 0) label = '距 ' + (exam.getMonth() + 1) + ' 月 ' + exam.getDate() + ' 日初试';
+        else if (days === 0) label = '初试';
+        el.examLabel.textContent = label;
+        el.examDays.textContent = days === 0 ? '今天' : String(Math.abs(days));
+        el.examUnit.textContent = days === 0 ? '' : '天';
+      }
+
+      function renderStats() {
+        var total = store.words.length;
+        var done = 0;
+        var today = 0;
+        var key = todayStr();
+        for (var i = 0; i < store.words.length; i++) {
+          if (store.words[i].done) done++;
+          if (todayStrOf(store.words[i].createdAt) === key) today++;
+        }
+        el.totalNum.textContent = String(total);
+        el.todayLine.textContent = '今日新增 ' + today;
+        el.stats.innerHTML =
+          '<div class="stat"><dt>待掌握</dt><dd>' + (total - done) + '</dd></div>' +
+          '<div class="stat"><dt>已掌握</dt><dd>' + done + '</dd></div>' +
+          '<div class="stat"><dt>标签</dt><dd>' + tagStats().length + '</dd></div>' +
+          '<div class="stat"><dt>今日新增</dt><dd>' + today + '</dd></div>';
+      }
+
+      function todayStrOf(ms) {
+        var d = new Date(ms);
+        return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      }
+
+      function renderSeg() {
+        var btns = el.filterSeg.querySelectorAll('.seg-btn');
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].classList.toggle('is-on', btns[i].getAttribute('data-mode') === filters.mode);
+        }
+      }
+
+      function renderTags() {
+        var tags = tagStats();
+        el.tagNote.textContent = tags.length + ' 个';
+        var html = '<li><button type="button" class="tag-row' + (filters.tags.length ? '' : ' is-on') +
+          '" data-tag=""><span>全部</span><span class="tag-count">' + store.words.length + '</span></button></li>';
+        for (var i = 0; i < tags.length; i++) {
+          var on = filters.tags.indexOf(tags[i].tag) >= 0;
+          html += '<li><button type="button" class="tag-row' + (on ? ' is-on' : '') + '" data-tag="' +
+            esc(tags[i].tag) + '"><span>' + esc(tags[i].tag) + '</span><span class="tag-count">' +
+            tags[i].count + '</span></button></li>';
+        }
+        if (!tags.length) {
+          html += '<li class="tag-empty">还没有标签。添加单词时在「标签」里写，用逗号分隔多个。</li>';
+        }
+        el.tagList.innerHTML = html;
+      }
+
+      function emptyHTML() {
+        var active = filters.text.trim() !== '' || filters.tags.length > 0 || filters.mode !== 'all';
+        if (!store.words.length) {
+          return '<li class="empty"><p class="empty-title">单词本还是空的。</p>' +
+            '<p>在左边填一个单词和释义，点「加入单词本」。也可以导入之前导出的 JSON。</p></li>';
+        }
+        if (active) {
+          return '<li class="empty"><p class="empty-title">没有符合条件的单词。</p>' +
+            '<p>换个关键词，或点左边标签里的「全部」清空筛选。</p></li>';
+        }
+        return '<li class="empty"><p class="empty-title">这里还没有单词。</p></li>';
+      }
+
+      function renderEntries() {
+        var list = visibleWords();
+        el.resultNote.textContent = list.length + ' 词' +
+          (filters.tags.length ? ' · 标签：' + filters.tags.join(' + ') : '');
+        if (!list.length) {
+          el.entries.innerHTML = emptyHTML();
+          return;
+        }
+        var html = '';
+        for (var i = 0; i < list.length; i++) {
+          var w = list[i];
+          var chips = '';
+          for (var k = 0; k < w.tags.length; k++) {
+            chips += '<button type="button" class="chip" data-act="tag" data-tag="' + esc(w.tags[k]) + '">' +
+              esc(w.tags[k]) + '</button>';
+          }
+          html += '<li class="entry' + (w.done ? ' is-done' : '') + '" data-id="' + esc(w.id) + '">' +
+            '<span class="folio">' + pad3(i + 1) + '</span>' +
+            '<div class="entry-main">' +
+            '<p class="entry-word">' +
+            '<label class="check"><input type="checkbox" data-act="done"' + (w.done ? ' checked' : '') +
+            ' aria-label="标记已掌握"></label>' +
+            '<span class="word">' + esc(w.word) + '</span>' +
+            (w.phonetic ? '<span class="phonetic">' + esc(w.phonetic) + '</span>' : '') +
+            '</p>' +
+            '<p class="entry-meaning">' + esc(w.meaning) + '</p>' +
+            (w.example ? '<p class="entry-example">' + esc(w.example) + '</p>' : '') +
+            '</div>' +
+            '<div class="entry-side">' +
+            '<div class="entry-tags">' + chips + '</div>' +
+            '<div class="entry-actions">' +
+            '<button type="button" class="btn-mini" data-act="edit">编辑</button>' +
+            '<button type="button" class="btn-mini" data-act="del">删除</button>' +
+            '</div>' +
+            '</div>' +
+            '</li>';
+        }
+        el.entries.innerHTML = html;
+      }
+
+      function render() {
+        renderStats();
+        renderTags();
+        renderSeg();
+        renderEntries();
+        renderSortBtn();
+      }
+
+      function renderSortBtn() {
+        el.sortBtn.textContent = filters.sort === 'az' ? 'A–Z' : '最新';
+        el.sortBtn.title = filters.sort === 'az' ? '当前按字母排序，点击切回最新' : '当前按最新添加排序，点击切到 A–Z';
+      }
+
+      function renderBgBtn() {
+        document.body.classList.toggle('no-photo', !store.settings.bgOn);
+        el.bgBtn.textContent = store.settings.bgOn ? '背景图：开' : '背景图：关';
+        el.bgBtn.classList.toggle('is-on', store.settings.bgOn);
+        el.bgBtn.title = store.settings.bgOn ? '正在显示背景图片，点击隐藏' : '背景图片已隐藏，点击显示';
+      }
+
+      function toggleBg() {
+        store.settings.bgOn = !store.settings.bgOn;
+        renderBgBtn();
+        saveStore();
+        toast(store.settings.bgOn ? '已显示背景图片' : '已隐藏背景图片');
+      }
+
+      function toast(text) {
+        el.toast.textContent = text;
+        el.toast.classList.add('is-open');
+        if (toastTimer) window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () {
+          el.toast.classList.remove('is-open');
+        }, 2400);
+      }
+
+      /* operations */
+
+      function addWord(word, meaning, phonetic, tags, example) {
+        var w = {
+          id: makeId(),
+          word: word,
+          meaning: meaning,
+          phonetic: phonetic,
+          tags: tags,
+          example: example,
+          done: false,
+          createdAt: Date.now()
+        };
+        store.words.push(w);
+        saveStore();
+        render();
+        return w;
+      }
+
+      function removeWord(id) {
+        var kept = [];
+        for (var i = 0; i < store.words.length; i++) {
+          if (store.words[i].id !== id) kept.push(store.words[i]);
+        }
+        store.words = kept;
+        saveStore();
+        render();
+        toast('已删除');
+      }
+
+      function toggleTag(tag) {
+        if (!tag) {
+          filters.tags = [];
+          render();
+          return;
+        }
+        var i = filters.tags.indexOf(tag);
+        if (i >= 0) filters.tags.splice(i, 1);
+        else filters.tags.push(tag);
+        render();
+      }
+
+      function armConfirm(btn, run) {
+        if (btn.getAttribute('data-armed') === '1') {
+          btn.removeAttribute('data-armed');
+          run();
+          return;
+        }
+        btn.setAttribute('data-armed', '1');
+        btn.classList.add('is-confirm');
+        btn.textContent = '确认删除';
+        window.setTimeout(function () {
+          btn.removeAttribute('data-armed');
+          btn.classList.remove('is-confirm');
+          btn.textContent = '删除';
+        }, 3200);
+      }
+
+      /* editor */
+
+      function openEditor(id) {
+        var w = findWord(id);
+        if (!w) return;
+        editingId = id;
+        el.edWord.value = w.word;
+        el.edMeaning.value = w.meaning;
+        el.edPhonetic.value = w.phonetic;
+        el.edTags.value = w.tags.join(', ');
+        el.edExample.value = w.example;
+        el.edDone.checked = w.done;
+        resetDeleteBtn();
+        el.modal.classList.add('is-open');
+        el.edWord.focus();
+        el.edWord.select();
+      }
+
+      function closeModal() {
+        el.modal.classList.remove('is-open');
+        editingId = null;
+      }
+
+      function resetDeleteBtn() {
+        el.edDelete.removeAttribute('data-armed');
+        el.edDelete.classList.remove('is-confirm');
+        el.edDelete.textContent = '删除';
+      }
+
+      /* events */
+
+      el.addForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var word = el.addWord.value.trim();
+        var meaning = el.addMeaning.value.trim();
+        if (!word || !meaning) return;
+        if (hasWord(word)) {
+          toast('「' + word + '」已经在单词本里了');
+          el.addWord.focus();
+          el.addWord.select();
+          return;
+        }
+        var tags = splitTags(el.addTags.value);
+        var created = addWord(word, meaning, el.addPhonetic.value.trim(), tags, el.addExample.value.trim());
+        el.addForm.reset();
+        el.addWord.focus();
+        toast(matches(created) ? '已加入单词本' : '已加入，当前筛选下不显示');
+      });
+
+      el.tagList.addEventListener('click', function (e) {
+        var btn = e.target.closest('.tag-row');
+        if (!btn) return;
+        toggleTag(btn.getAttribute('data-tag') || '');
+      });
+
+      el.filterSeg.addEventListener('click', function (e) {
+        var btn = e.target.closest('.seg-btn');
+        if (!btn) return;
+        filters.mode = btn.getAttribute('data-mode');
+        render();
+      });
+
+      el.sortBtn.addEventListener('click', function () {
+        filters.sort = filters.sort === 'az' ? 'new' : 'az';
+        render();
+      });
+
+      el.bgBtn.addEventListener('click', toggleBg);
+
+      el.fileBtn.addEventListener('click', openFileModal);
+      el.fileBindBtn.addEventListener('click', bindDataFolder);
+      el.fileLoadBtn.addEventListener('click', loadDataFileFromDisk);
+      el.fileCancel.addEventListener('click', closeFileModal);
+      el.fileModal.addEventListener('mousedown', function (e) {
+        if (e.target === el.fileModal) closeFileModal();
+      });
+
+      el.search.addEventListener('input', function () {
+        filters.text = el.search.value;
+        renderEntries();
+      });
+
+      el.entries.addEventListener('change', function (e) {
+        var box = e.target;
+        if (!box || box.getAttribute('data-act') !== 'done') return;
+        var li = box.closest('.entry');
+        if (!li) return;
+        var w = findWord(li.getAttribute('data-id'));
+        if (!w) return;
+        w.done = box.checked;
+        saveStore();
+        render();
+      });
+
+      el.entries.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-act]');
+        if (!btn) return;
+        var act = btn.getAttribute('data-act');
+        if (act === 'tag') {
+          toggleTag(btn.getAttribute('data-tag') || '');
+          return;
+        }
+        var li = btn.closest('.entry');
+        if (!li) return;
+        var id = li.getAttribute('data-id');
+        if (act === 'edit') openEditor(id);
+        else if (act === 'del') armConfirm(btn, function () { removeWord(id); });
+      });
+
+      el.editForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var w = findWord(editingId);
+        if (!w) {
+          closeModal();
+          return;
+        }
+        var word = el.edWord.value.trim();
+        var meaning = el.edMeaning.value.trim();
+        if (!word || !meaning) return;
+        if (hasWord(word, w.id)) {
+          toast('「' + word + '」已经在单词本里了');
+          el.edWord.focus();
+          el.edWord.select();
+          return;
+        }
+        w.word = word;
+        w.meaning = meaning;
+        w.phonetic = el.edPhonetic.value.trim();
+        w.tags = splitTags(el.edTags.value);
+        w.example = el.edExample.value.trim();
+        w.done = el.edDone.checked;
+        saveStore();
+        render();
+        closeModal();
+        toast('已保存');
+      });
+
+      el.edDelete.addEventListener('click', function () {
+        var id = editingId;
+        armConfirm(el.edDelete, function () {
+          resetDeleteBtn();
+          closeModal();
+          removeWord(id);
+        });
+      });
+
+      el.edCancel.addEventListener('click', closeModal);
+
+      el.modal.addEventListener('click', function (e) {
+        if (e.target === el.modal) closeModal();
+      });
+
+      el.exportBtn.addEventListener('click', function () {
+        var payload = { words: store.words };
+        var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'vocab-' + todayStr() + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        toast('已导出 ' + store.words.length + ' 个单词');
+      });
+
+      el.importBtn.addEventListener('click', function () {
+        el.importFile.click();
+      });
+
+      el.importFile.addEventListener('change', function () {
+        var file = el.importFile.files && el.importFile.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          try {
+            var parsed = JSON.parse(String(reader.result));
+            if (!parsed || Object.prototype.toString.call(parsed.words) !== '[object Array]') throw new Error('bad');
+            if (!window.confirm('导入会覆盖当前的单词本，确定继续吗？')) {
+              el.importFile.value = '';
+              return;
+            }
+            applyParsedData(parsed, true);
+            saveStore();
+            renderBgBtn();
+            render();
+            toast('导入完成，共 ' + store.words.length + ' 个单词');
+          } catch (err) {
+            toast('这个文件读不出来，请确认是导出的单词 JSON');
+          }
+          el.importFile.value = '';
+        };
+        reader.readAsText(file);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && el.modal.classList.contains('is-open')) {
+          closeModal();
+          return;
+        }
+        if (e.key !== '/') return;
+        if (el.modal.classList.contains('is-open')) return;
+        var tag = (document.activeElement && document.activeElement.tagName) || '';
+        if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+        e.preventDefault();
+        el.search.focus();
+        el.search.select();
+      });
+
+      /* boot */
+
+      loadStore();
+      var segHtml = '';
+      for (var i = 0; i < MODES.length; i++) {
+        segHtml += '<button type="button" class="seg-btn" data-mode="' + MODES[i].id + '">' + MODES[i].label + '</button>';
+      }
+      el.filterSeg.innerHTML = segHtml;
+      renderCountdown();
+      renderBgBtn();
+      render();
+      if (storageBlocked) markStorageBlocked();
+      restoreDataFile();
+      window.setInterval(renderCountdown, 60000);
+    })();
+  </script>
+</body>
+
+</html>
