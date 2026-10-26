@@ -1067,6 +1067,7 @@
       <h3 id="fileHead">数据文件</h3>
       <p class="file-state" id="fileState">还没有绑定文件夹。</p>
       <p class="file-note">选一次这个 HTML 所在的文件夹，单词就会自动写进同目录的 vocab.json；换电脑、清掉浏览器数据也能恢复。浏览器不支持时，用「导出数据 / 导入数据」手动备份。</p>
+      <p class="file-note">部署在 GitHub Pages 时，页面会自动读取同目录的 vocab.json。推送并完成部署后刷新页面即可看到最新单词；网页里新增的内容仍只保存在当前浏览器，需要导出后提交到仓库才能跨设备同步。</p>
       <div class="modal-actions">
         <button type="button" class="btn spacer" id="fileLoadBtn">载入文件…</button>
         <button type="button" class="btn" id="fileCancel">关闭</button>
@@ -1191,6 +1192,36 @@
         } catch (err) {
           storageBlocked = true;
         }
+      }
+
+      /*
+       * GitHub Pages 没有可写的服务端，所以把仓库里的 JSON 作为页面数据源。
+       * 时间戳参数会绕过旧的浏览器缓存；拉取失败时继续使用本地已保存的数据。
+       */
+      function loadPageVocab() {
+        if (!window.fetch || location.protocol === 'file:') return Promise.resolve(false);
+        var url = './vocab.json?fresh=' + Date.now();
+        return fetch(url, { cache: 'no-store' }).then(function (response) {
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          return response.json();
+        }).then(function (parsed) {
+          if (!parsed || Object.prototype.toString.call(parsed.words) !== '[object Array]') {
+            throw new Error('vocab.json 格式不正确');
+          }
+          store.words = normalizeWords(parsed.words);
+          if (parsed.settings && parsed.settings.bgOn === false) store.settings.bgOn = false;
+          else store.settings.bgOn = true;
+          store.updatedAt = Number(parsed.updatedAt) || Date.now();
+          try {
+            localStorage.setItem(STORE_KEY, JSON.stringify(store));
+          } catch (err) {
+            markStorageBlocked();
+          }
+          return true;
+        }).catch(function (err) {
+          if (window.console && console.warn) console.warn('读取 vocab.json 失败，继续使用本地数据。', err);
+          return false;
+        });
       }
 
       function saveStore() {
@@ -1943,7 +1974,14 @@
       renderBgBtn();
       render();
       if (storageBlocked) markStorageBlocked();
-      restoreDataFile();
+      loadPageVocab().then(function (remoteLoaded) {
+        if (remoteLoaded) {
+          renderBgBtn();
+          render();
+        } else {
+          restoreDataFile();
+        }
+      });
       window.setInterval(renderCountdown, 60000);
     })();
   </script>
